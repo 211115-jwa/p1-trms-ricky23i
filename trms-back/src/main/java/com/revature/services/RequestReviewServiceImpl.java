@@ -13,11 +13,14 @@ public class RequestReviewServiceImpl implements RequestReviewService{
 	private ReimbursementDAO reimbDao= new ReimbursementPostgres();
 	@Override
 	public Set<Reimbursement> getPendingReimbursements(Employee approver) {
-		// TODO Auto-generated method stub
+	
 		
 		return (reimbDao.getByRequestor(approver));
 	}
-
+/**
+ * Approving or rejecting requests requires us to create a Status object. 
+ * so we can update the status within the reimbursement setstatus method.
+ * */
 	@Override
 	public void approveRequest(Reimbursement request) {
 		Status approvestat =request.getStatus();
