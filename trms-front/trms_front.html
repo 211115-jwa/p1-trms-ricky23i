@@ -1,0 +1,49 @@
+<html>
+<head>
+
+    <style>
+        div {
+            background-image: url('file:///background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+    <title>Doge Lore</title>
+</head>
+<body>
+
+    <h2 style="color:black;text-align:center;">DOGE LORE</h2>
+    <form action="http://localhost:8080/dogelore" method="POST">
+        <label for="name">Name:</label><!-- the label tag specifies which input this text is referring to -->
+        <input type="text" name="name" id="name">
+        <br>
+        <label for="species">Toast:</label>
+        <!--<input type="text" name="toast" id="toast">-->
+        <select name="toast" id="toast">
+            <option>Untoasted</option>
+            <option>Toasted</option>
+            <option>Barely Toasted</option>
+            <option>Lightly Toasted</option>
+            <option>Heckin Toasted</option>
+            <option>Burnt</option>
+            <option>Not Applicable</option>
+        </select>
+        <br>
+        <label for="species">Species:</label>
+        <input type="text" name="species" id="species">
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description">
+        <br>
+        <label for="age">Age:</label>
+        <input type="text" name="age" id="age">
+        <br>
+        <button>Submit</button>
+    </form>
+    <form action="http://localhost:8080/dogelist" method="GET">
+        <button type="submit" name="list">List Characters</button>
+    </form>
+
+</body>
+</html>
