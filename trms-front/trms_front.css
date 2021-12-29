@@ -1,4 +1,5 @@
-﻿html {
+﻿
+html {
     min-height: 100%;
 }
 
@@ -22,18 +23,21 @@ h2{
     text-align: center;
 }
 form {
-    margin-top:-155px;
-    margin-left: 1000px;
-    margin-right: 200px;
+    margin-top: 1%;
+    margin-left: 51%;
+    margin-right: 5%;
+    position: absolute;
 }
 p {
     text-align: center;
-    margin-right:1000px;
-    margin-left: 200px;
+    margin-right: 50%;
+    margin-left: 5%;
     font-size: large;
+    position: absolute;
 }
 
 body {
+    overflow: hidden;
     height: 100%;
     align-items: center;
     background-image: url("background.jpg");
