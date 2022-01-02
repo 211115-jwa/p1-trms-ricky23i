@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class Reimbursement {
+	
 	private int reqId;
 	private Employee requestor;
 	private LocalDate eventDate;
@@ -20,7 +21,7 @@ public class Reimbursement {
 	
 	public Reimbursement() {
 		reqId=0;
-		requestor=null;
+		requestor= new Employee();
 		eventDate=null;
 		eventTime=null;
 		location="";

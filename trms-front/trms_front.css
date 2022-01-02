@@ -22,7 +22,11 @@ h2{
     margin-top: 200px;
     text-align: center;
 }
-form {
+form[name="AllRequests"] {
+    margin-left:25%;
+    position: absolute;
+}
+form[name="RequestSubmit"] {
     margin-top: 1%;
     margin-left: 51%;
     margin-right: 5%;
@@ -40,9 +44,8 @@ body {
     overflow: hidden;
     height: 100%;
     align-items: center;
-    background-image: url("background.jpg");
-    background-repeat: no-repeat ;
     background-size: cover;
     background-position: center;
+    background-color: rgba(200,230,255,0.5);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }

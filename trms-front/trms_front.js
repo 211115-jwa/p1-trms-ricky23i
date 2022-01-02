@@ -1,4 +1,7 @@
 ﻿
 function submitReq() {
-    console.log('Hi')
+    console.log('Submit')
+}
+function viewReimb() {
+    console.log("Viewall")
 }

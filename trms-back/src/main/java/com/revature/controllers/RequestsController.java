@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import com.revature.beans.Employee;
 import com.revature.beans.Reimbursement;
 import com.revature.services.EmployeeService;
@@ -11,6 +13,7 @@ import io.javalin.http.HttpCode;
 public class RequestsController {
 	private static EmployeeService empServ = new EmployeeServiceImpl();
 	
+	//private static Logger log = LogManager.getLogger(RequestsController.class);
 	/**
 	 * Retrieves the submitted reimbursement request from the
 	 * HTTP request body and sends it to be inserted in the database.
@@ -28,6 +31,7 @@ public class RequestsController {
 	 * @param ctx Javalin's Context object representing the HTTP request and response
 	 */
 	public static void submitReimbursementRequest(Context ctx) {
+		//log.info("User is submitting reimbursement");
 		Reimbursement request = ctx.bodyAsClass(Reimbursement.class);
 		int reqId = empServ.submitReimbursementRequest(request);
 		if (reqId != 0) {
@@ -59,8 +63,10 @@ public class RequestsController {
 	 * @param ctx Javalin's Context object representing the HTTP request and response
 	 */
 	public static void getRequestsByRequestor(Context ctx) {
-		String requestorIdStr = ctx.pathParam("id");
 		
+		String requestorIdStr = ctx.pathParam("id");
+		//log.info("User is requesting all reimbursements");
+		System.out.println("lookup");
 		try {
 			int requestorId = Integer.valueOf(requestorIdStr);
 			Employee requestor = empServ.getEmployeeById(requestorId);

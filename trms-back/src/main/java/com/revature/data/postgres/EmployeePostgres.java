@@ -21,7 +21,7 @@ public class EmployeePostgres implements EmployeeDAO {
 		int generatedId=0;
 		try (Connection conn = connUtil.getConnection()) {
 			conn.setAutoCommit(false);
-			String[] keys = {"emp_Id"};
+			String[] keys = {"emp_id"};
 			String sql="insert into employee"
 					+ " (first_name,"
 					+ " last_name,"
@@ -60,7 +60,7 @@ public class EmployeePostgres implements EmployeeDAO {
 	@Override
 	public Employee getById(int id) {
 		Employee emp = null;
-		
+		Employee sup = null;
 		try (Connection conn = connUtil.getConnection()) {
 			String sql = "select emp_id,"
 					+ " first_name,"
@@ -81,6 +81,7 @@ public class EmployeePostgres implements EmployeeDAO {
 			
 			if (resultSet.next()) {
 				emp = new Employee();
+				sup = new Employee();
 				emp.setEmpId(id);
 				emp.setFirstName(resultSet.getString("first_name"));
 				emp.setLastName(resultSet.getString("last_name"));
@@ -91,6 +92,8 @@ public class EmployeePostgres implements EmployeeDAO {
 				role.setRoleId(resultSet.getInt("role_id"));
 				role.setName(resultSet.getString("role_name"));
 				emp.setRole(role);
+				if(emp.getSupervisor()==null)
+					emp.setSupervisor(sup);	
 				emp.getSupervisor().setEmpId(resultSet.getInt("supervisor_id"));
 				emp.getDepartment().setDeptId(resultSet.getInt("dept_id"));
 			}
@@ -124,6 +127,7 @@ public class EmployeePostgres implements EmployeeDAO {
 			
 			while (resultSet.next()) {
 				Employee emp = new Employee();
+				Employee sup = new Employee();
 				emp.setEmpId(resultSet.getInt("emp_id"));
 				emp.setFirstName(resultSet.getString("first_name"));
 				emp.setLastName(resultSet.getString("last_name"));
@@ -134,7 +138,12 @@ public class EmployeePostgres implements EmployeeDAO {
 				role.setRoleId(resultSet.getInt("role_id"));
 				role.setName(resultSet.getString("role_name"));
 				emp.setRole(role);
-				emp.getSupervisor().setEmpId(resultSet.getInt("supervisor_id"));
+				if(emp.getSupervisor()==null)
+				emp.setSupervisor(sup);	
+					
+				
+	
+					emp.getSupervisor().setEmpId(resultSet.getInt("supervisor_id"));
 				emp.getDepartment().setDeptId(resultSet.getInt("dept_id"));
 				
 				emps.add(emp);

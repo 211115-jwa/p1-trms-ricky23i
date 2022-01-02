@@ -24,7 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private ReimbursementDAO reqDao = DAOFactory.getReimbursementDAO();
 	private CommentDAO commentDao = DAOFactory.getCommentDAO();
 	private EmployeeDAO empDao = DAOFactory.getEmployeeDAO();
+	//private EmployeeDAO supDao = DAOFactory.getEmployeeDAO();
 
+	
 	@Override
 	public Map<String, Set<Object>> getRequestOptions() {
 		Map<String,Set<Object>> requestOptions = new HashMap<>();
@@ -65,9 +67,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		comment.setSentAt(LocalDateTime.now());
 		return commentDao.create(comment);
 	}
-
 	@Override
 	public Employee getEmployeeById(int empId) {
+
 		return empDao.getById(empId);
 	}
 
