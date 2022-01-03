@@ -21,8 +21,14 @@ public class Employee {
 		password="";
 		role = new Role();
 		funds = 1000.00;
-		supervisor = null;
+		supervisor = new Employee(empId);
 		department = new Department();
+	}
+	
+	public Employee(int id) {
+		super();
+		empId=id;
+		
 	}
 
 	public int getEmpId() {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.revature.beans.Comment;
 import com.revature.beans.Employee;
+import com.revature.beans.EventType;
 import com.revature.beans.Reimbursement;
 
 public interface EmployeeService {
