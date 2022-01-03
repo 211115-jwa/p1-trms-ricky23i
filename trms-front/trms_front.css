@@ -49,3 +49,33 @@ body {
     background-color: rgba(200,230,255,0.5);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
+nav {
+    display: flex;
+    justify-content: space-around;
+    font-size: 24pt;
+}
+
+#navLeft {
+    
+    display: flex;
+    justify-content: space-around;
+    width: 67%;
+}
+
+#navRight {
+    display: flex;
+    justify-content: right;
+    width: 33%;
+}
+
+nav, main {
+    margin: .5em;
+    padding: 1em;
+    background-color: #0CCBF5;
+}
+table,th,td {
+    margin-top:5%;
+    font-size:16pt;
+    border:1px solid #887744;
+    border-collapse: collapse;
+}

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> Tuition Reimbursement Request</title>
+    <link rel="stylesheet" href="trms_front.css">
+   
+</head>
+<body>
+    <nav id="nav">
+    </nav>
+
+    <header>
+        <h1><span>Tuition Reimbursement</span></h1>
+    </header>
+    <form name="AllRequests">
+        <label for="viewAll">Employee ID:</label>
+        <input type="number" name="EmpID">
+        <button type="button" name="viewAll" onclick="viewReimb()">View All Requests</button>
+    </form>
+    <script src="trms_front.js"></script>
+
+    <table id="requestsID">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Approver</th>
+            <th>Comment</th>
+        </tr>
+    </table>
+</body>
+</html>
