@@ -14,11 +14,11 @@
     </header>
     <form name="AllRequests">
         <label for="viewAll">Employee ID:</label>
-        <input type="number" name="EmpID">
-        <button type="button" name="viewAll" onclick="viewReimb()">View All Requests</button>
+        <input type="number" name="employid" id="empid"> 
+        <button type="button" name="viewAll" onclick="getRequestByID()">View All Requests</button>
     </form>
     <script src="trms_front.js"></script>
-
+    <script src="trms_front_fetch.js"></script>
     <table id="requestsID">
         <tr>
             <th>ID</th>

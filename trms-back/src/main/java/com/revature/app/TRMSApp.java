@@ -1,19 +1,23 @@
 package com.revature.app;
 
 import io.javalin.Javalin;
-import static io.javalin.apibuilder.ApiBuilder.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.revature.controllers.RequestsController;
+import io.javalin.plugin.json.JsonMapper;
 
+import static io.javalin.apibuilder.ApiBuilder.*;
+
+import java.io.IOException;
+
+import com.revature.controllers.RequestsController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TRMSApp {
-	
+
 	public static void main(String[] args) {
-		ObjectMapper mapper = JsonMapper.builder()
-			    .findAndAddModules()
-			    .build();
-		Javalin app = Javalin.create().start();
+	
+		Javalin app = Javalin.create(config -> {
+			config.jsonMapper(new JacksonMapper());
+		}).start();
 		
 		app.routes(() -> {
 			path("/requests", () -> {
@@ -25,4 +29,31 @@ public class TRMSApp {
 		});
 	}
 
+}
+
+
+
+class JacksonMapper implements JsonMapper {
+	ObjectMapper om = new ObjectMapper();
+	@Override
+    public String toJsonString(Object obj) {
+        try {
+			return om.writeValueAsString(obj);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+        return null;
+    }
+    @Override
+    public <T> T fromJsonString(String json, Class<T> targetClass) {
+        try {
+			return om.readValue(json, targetClass);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return null;
+    }
 }

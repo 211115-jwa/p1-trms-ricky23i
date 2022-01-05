@@ -13,6 +13,8 @@ public class Department {
 		deptHeadId = 0;
 	}
 
+	
+	
 	public int getDeptId() {
 		return deptId;
 	}
