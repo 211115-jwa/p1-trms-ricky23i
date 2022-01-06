@@ -21,13 +21,13 @@ import com.revature.utils.ConnectionUtil;
 
 public class ReimbursementPostgres implements ReimbursementDAO {
 	private ConnectionUtil connUtil = ConnectionUtil.getConnectionUtil();
-
+//test created
 	@Override
 	public int create(Reimbursement dataToAdd) {
 		int generatedId=0;
 		try (Connection conn = connUtil.getConnection()) {
 			conn.setAutoCommit(false);
-			String[] keys = {"req_Id"};
+			String[] keys = {"req_id"};
 			String sql="insert into reimbursement"
 					+ " (emp_id,"
 					+ " event_date,"
@@ -66,7 +66,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		}
 		return generatedId;
 	}
-
+//tested both positive + negative
 	@Override
 	public Reimbursement getById(int id) {
 		Reimbursement request = null;
@@ -129,7 +129,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		}
 		return request;
 	}
-
+//tested
 	@Override
 	public Set<Reimbursement> getAll() {
 		Set<Reimbursement> requests = new HashSet<>();
@@ -192,7 +192,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		}
 		return requests;
 	}
-
+//tested
 	@Override
 	public void update(Reimbursement dataToUpdate) {
 		try (Connection conn = connUtil.getConnection()) {
@@ -220,7 +220,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 			pStmt.setInt(8, dataToUpdate.getEventType().getEventId());
 			pStmt.setInt(9, dataToUpdate.getStatus().getStatusId());
 			pStmt.setTimestamp(10, Timestamp.valueOf(dataToUpdate.getSubmittedAt()));
-			pStmt.setInt(10, dataToUpdate.getReqId());
+			pStmt.setInt(11, dataToUpdate.getReqId());
 			
 			int rowsAffected = pStmt.executeUpdate();
 			if (rowsAffected <= 1) {
@@ -233,7 +233,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 			e.printStackTrace();
 		}
 	}
-
+//tested
 	@Override
 	public void delete(Reimbursement dataToDelete) {
 		try (Connection conn = connUtil.getConnection()) {
@@ -254,7 +254,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 			e.printStackTrace();
 		}
 	}
-
+//tested positive + negative
 	@Override
 	public Set<Reimbursement> getByRequestor(Employee requestor) {
 		Set<Reimbursement> requests = new HashSet<>();

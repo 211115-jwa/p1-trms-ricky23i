@@ -14,8 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TRMSApp {
 
 	public static void main(String[] args) {
-	
+	//	Javalin app = Javalin.create().start();
 		Javalin app = Javalin.create(config -> {
+			config.enableCorsForAllOrigins();
 			config.jsonMapper(new JacksonMapper());
 		}).start();
 		
@@ -56,4 +57,5 @@ class JacksonMapper implements JsonMapper {
 		}
         return null;
     }
-}
+    
+} 
