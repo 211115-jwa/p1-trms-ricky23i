@@ -27,6 +27,9 @@ public class TRMSApp {
 					get(RequestsController::getRequestsByRequestor);
 				});
 			});
+			path("/emp/{id}", ()->{
+				get(RequestsController::getEmployeeById);
+			});
 		});
 	}
 

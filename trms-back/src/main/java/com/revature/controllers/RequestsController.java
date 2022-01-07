@@ -14,6 +14,7 @@ public class RequestsController {
 	private static EmployeeService empServ = new EmployeeServiceImpl();
 	
 	//private static Logger log = LogManager.getLogger(RequestsController.class);
+	
 	/**
 	 * Retrieves the submitted reimbursement request from the
 	 * HTTP request body and sends it to be inserted in the database.
@@ -82,5 +83,27 @@ public class RequestsController {
 			ctx.status(400);
 			ctx.result("Requestor ID must be an integer. Please try again.");
 		}
+	}
+	public static void getEmployeeById(Context ctx) {
+		String requestorIdStr = ctx.pathParam("id");
+		try {
+			int empid = Integer.valueOf(requestorIdStr);
+			Employee emp = empServ.getEmployeeById(empid);;
+			if(emp!=null) {
+				ctx.json(empServ.getEmployeeById(empid));
+			}
+			else {
+			ctx.status(404);
+			ctx.result("The user you specified does not exist.");
+			}
+			
+		}
+		catch  (NumberFormatException e) {
+			ctx.status(400);
+			ctx.result("Requestor ID must be an integer. Please try again.");
+		}
+		
+		
+		
 	}
 }

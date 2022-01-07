@@ -18,19 +18,23 @@
 
     <form name="RequestSubmit">
         <label for="employeeid">Employee ID:</label>
-        <input type="number" name="lname">
+        <input type="number" name="employeeid" id="id">
         <br>
         <br>
         <label for="edate">Event Date:</label>
-        <input type="datetime-local" id="event-date" name="edate"
-               value="2021-12-01T00:00"
-               min="datetime-local" max="2023-12-31T00:00">
+        <input type="date" id="event-date" name="edate"
+               value="2022-01-01" min="2022-01-01" max="2030-12-31">
+        <label for="edate">Event Time:</label>
+        <input type="time" id="event-time" name="etime"
+               value="00:00:00" min="00:00:00">
+        <br>
+        <br>
         <label for="location">Event Location:</label>
-        <input type="text" name="location">
+        <input type="text" name="location" id="loca">
         <br>
         <br>
         <label for="cost">Cost:</label>
-        <input type="number" name="location">
+        <input type="number" name="location" id="cost">
         <label for="gformat">Grading format:</label>
         <select id="gformat" name="tuser">
             <option value="1">Grade</option>
@@ -41,7 +45,7 @@
         <br>
         <br>
         <label for="rwork">Type of Event:</label>
-        <select id="eventtype" name="rwork">
+        <select id="event" name="rwork">
             <option value="1">University Course</option>
             <option value="2">Seminar</option>
             <option value="3">Certification Preparation Class</option>
@@ -50,7 +54,7 @@
             <option value="6">Other</option>
         </select>
         <label for="tuser">Current Role</label>
-        <select id="eventtype" name="tuser">
+        <select id="role" name="tuser" >
             <option value="1">Employee</option>
             <option value="2">Supervisor</option>
             <option value="3">Department Head</option>
@@ -58,14 +62,14 @@
         </select>
         <br>
         <br>
-        <textarea name="message" rows="10" cols="70">Description</textarea>
+        <textarea name="message" rows="10" cols="70" id="desc">Description</textarea>
         <br>
         <br>
-        <button type="button" name="send" onclick="submitReq()">Submit</button>
+        <button type="button" name="send" onclick="createRequestJSON()">Submit</button>
     </form>
 
     <script src="trms_front.js"></script>
-
+    <script src="trms_front_fetch.js"></script>
 
 </body>
 </html>

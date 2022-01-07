@@ -79,25 +79,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return empDao.getById(empId);
 	}
-	class JacksonMapper implements JsonMapper {
-		ObjectMapper om = new ObjectMapper();
-		@Override
-	    public String toJsonString(Object obj) {
-	        try {
-				return om.writeValueAsString(obj);
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-	        return null;
-	    }
-	    @Override
-	    public <T> T fromJsonString(String json, Class<T> targetClass) {
-	        try {
-				return om.readValue(json, targetClass);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	        return null;
-	    }
-	}
+	
 }
