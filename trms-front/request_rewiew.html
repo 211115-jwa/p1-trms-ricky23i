@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> Tuition Reimbursement Request Review</title>
+    <link rel="stylesheet" href="trms_front.css">
+
+</head>
+<body>
+    <nav id="nav">
+    </nav>
+
+    <header>
+        <h1><span>Tuition Reimbursement</span></h1>
+    </header>
+    <form name="PendingRequests">
+        <label for="viewAll">Employee ID:</label>
+        <input type="number" name="employid" id="empid">
+        <button type="button" name="viewAll" onclick="getRequestByApprover()">View All Requests</button>
+    </form>
+    <script src="trms_front.js"></script>
+    <script src="trms_front_fetch.js"></script>
+    <table id="requestsID">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Approver</th>
+        </tr>
+    </table>
+</body>
+</html>

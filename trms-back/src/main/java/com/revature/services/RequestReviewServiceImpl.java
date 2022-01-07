@@ -31,7 +31,10 @@ public class RequestReviewServiceImpl implements RequestReviewService{
 
 	@Override
 	public void rejectRequest(Reimbursement request) {
-		// TODO Auto-generated method stub
+		Status approvestat =request.getStatus();
+		approvestat.setName("Denied");
+		request.setStatus(approvestat);
+		reimbDao.update(request);
 		
 	}
 

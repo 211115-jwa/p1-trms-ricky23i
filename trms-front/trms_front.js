@@ -7,7 +7,7 @@ function setupNav() {
         <a href="request.html"><b>Pending Requests</b></a>
         </span>
         <span id="navRight">
-        <a href="#">Log In</a>
+        <a href="request_rewiew.html"><b>Requests Management</b></a>
         </span>`;
     }
 
