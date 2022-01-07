@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +30,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 		int generatedId=0;
 		try (Connection conn = connUtil.getConnection()) {
 			conn.setAutoCommit(false);
-			String[] keys = {"req_id"};
+			//String[] keys = {"req_id"};
 			String sql="insert into reimbursement"
 					+ " (emp_id,"
 					+ " event_date,"
@@ -40,8 +43,15 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 					+ " status_id,"
 					+ " submitted_at)"
 					+ " values (?,?,?,?,?,?,?,?,?,?)";
+			String[] keys = {"req_id"};
 			PreparedStatement pStmt = conn.prepareStatement(sql,keys);
 			pStmt.setInt(1, dataToAdd.getRequestor().getEmpId());
+			/*
+			DateTimeFormatter dformat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			pStmt.setDate(2, Date.valueOf(LocalDate.parse(dataToAdd.getEventDate().toString(),dformat)));
+			DateTimeFormatter tformat = DateTimeFormatter.ofPattern("HH:mm:ss");
+			pStmt.setTime(3, Time.valueOf(LocalTime.parse(dataToAdd.getEventTime().toString(),tformat)));
+			*/
 			pStmt.setDate(2, Date.valueOf(dataToAdd.getEventDate()));
 			pStmt.setTime(3, Time.valueOf(dataToAdd.getEventTime()));
 			pStmt.setString(4, dataToAdd.getLocation());
@@ -346,7 +356,7 @@ public class ReimbursementPostgres implements ReimbursementDAO {
 					" join grading_format gf on r.grading_format_id=gf.format_id" + 
 					" join event_type et on r.event_type_id=et.type_id" + 
 					" join status s on r.status_id=s.status_id"
-					+ " where status_id=?";
+					+ " where s.status_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setInt(1, status.getStatusId());
 			

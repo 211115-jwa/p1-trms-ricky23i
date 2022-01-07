@@ -32,6 +32,7 @@ public class RequestsController {
 	 */
 	public static void submitReimbursementRequest(Context ctx) {
 		//log.info("User is submitting reimbursement");
+		//System.out.println(ctx);
 		Reimbursement request = ctx.bodyAsClass(Reimbursement.class);
 		int reqId = empServ.submitReimbursementRequest(request);
 		if (reqId != 0) {

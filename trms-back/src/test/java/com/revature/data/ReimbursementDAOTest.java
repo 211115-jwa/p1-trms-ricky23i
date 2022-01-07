@@ -5,29 +5,30 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import org.junit.jupiter.api.*;
 
-import com.revature.beans.Employee;
+
 import com.revature.beans.EventType;
 import com.revature.beans.GradingFormat;
 import com.revature.beans.Reimbursement;
 import com.revature.beans.Status;
-import com.revature.data.postgres.EmployeePostgres;
-import com.revature.data.postgres.ReimbursementPostgres;
+
 import com.revature.utils.DAOFactory;
 
 public class ReimbursementDAOTest {
 
 	private ReimbursementDAO redao = DAOFactory.getReimbursementDAO();
 	private EmployeeDAO empdao = DAOFactory.getEmployeeDAO();
+	private StatusDAO statdao = DAOFactory.getStatusDAO();
 	
 	@Test
 	public void getByIdNotNull() {
@@ -94,17 +95,17 @@ public class ReimbursementDAOTest {
 	}
 	@Test
 	public void getByRequestorNull() {
-		
 		assertThrows(NullPointerException.class,()->redao.getByRequestor(empdao.getById(545645645)));
 		
 	}
-	/*
+	
 	@Test
 	public void getByStatusNotNull() {
-		Status t= new Status();
-		t.setApprover("");
-		assertNotNull(redao.getByStatus(t));
-		
-	}*/
+		assertNotNull(redao.getByStatus(statdao.getById(1)));
+	}
+	@Test
+	public void getByStatusNull() {
+		assertTrue(redao.getByStatus(statdao.getById(9)).isEmpty());
+	}
 	
 }

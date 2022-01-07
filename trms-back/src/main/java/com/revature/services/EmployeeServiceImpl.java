@@ -1,13 +1,18 @@
 package com.revature.services;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Comment;
 import com.revature.beans.Employee;
-import com.revature.beans.EventType;
 import com.revature.beans.Reimbursement;
 import com.revature.beans.Status;
 import com.revature.data.CommentDAO;
@@ -18,6 +23,8 @@ import com.revature.data.ReimbursementDAO;
 import com.revature.data.StatusDAO;
 import com.revature.utils.DAOFactory;
 
+import io.javalin.plugin.json.JsonMapper;
+
 public class EmployeeServiceImpl implements EmployeeService {
 	private EventTypeDAO eventTypeDao = DAOFactory.getEventTypeDAO();
 	private GradingFormatDAO gradFormatDao = DAOFactory.getGradingFormatDAO();
@@ -27,7 +34,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeDAO empDao = DAOFactory.getEmployeeDAO();
 	//private EmployeeDAO supDao = DAOFactory.getEmployeeDAO();
 
-	
 	@Override
 	public Map<String, Set<Object>> getRequestOptions() {
 		Map<String,Set<Object>> requestOptions = new HashMap<>();
@@ -73,5 +79,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return empDao.getById(empId);
 	}
-
+	class JacksonMapper implements JsonMapper {
+		ObjectMapper om = new ObjectMapper();
+		@Override
+	    public String toJsonString(Object obj) {
+	        try {
+				return om.writeValueAsString(obj);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+	        return null;
+	    }
+	    @Override
+	    public <T> T fromJsonString(String json, Class<T> targetClass) {
+	        try {
+				return om.readValue(json, targetClass);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	        return null;
+	    }
+	}
 }

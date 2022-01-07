@@ -6,7 +6,7 @@ import io.javalin.plugin.json.JsonMapper;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 import java.io.IOException;
-
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.revature.controllers.RequestsController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,27 +35,32 @@ public class TRMSApp {
 
 
 class JacksonMapper implements JsonMapper {
-	ObjectMapper om = new ObjectMapper();
-	@Override
+    ObjectMapper om = new ObjectMapper();
+
+    {
+        om.findAndRegisterModules();
+    }
+
+    @Override
     public String toJsonString(Object obj) {
         try {
-			return om.writeValueAsString(obj);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
+            return om.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return null;
     }
     @Override
     public <T> T fromJsonString(String json, Class<T> targetClass) {
         try {
-			return om.readValue(json, targetClass);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+            return om.readValue(json, targetClass);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         return null;
     }
     
-} 
+}

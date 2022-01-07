@@ -55,16 +55,21 @@ public class Reimbursement {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fdate = LocalDate.parse(eventDate,formatter);
 		return fdate;
+		
+		//return eventDate;
 	}
 
 	public void setEventDate(LocalDate eventDate) {
+		
 		this.eventDate = String.valueOf(eventDate);
 	}
 
 	public LocalTime getEventTime() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime ftime = LocalTime.parse(eventTime,formatter);
 		return ftime;
+		
+		//return eventTime;
 	}
 
 	public void setEventTime(LocalTime eventTime) {
