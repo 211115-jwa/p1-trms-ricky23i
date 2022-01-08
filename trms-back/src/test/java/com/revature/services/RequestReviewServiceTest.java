@@ -1,11 +1,15 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.revature.beans.Comment;
 import com.revature.beans.Department;
 import com.revature.beans.Employee;
+import com.revature.beans.Status;
 import com.revature.beans.Reimbursement;
 import com.revature.controllers.RequestsController;
 import com.revature.data.CommentDAO;
@@ -55,16 +60,29 @@ public class RequestReviewServiceTest {
 	private static Set<Reimbursement> mockRequests;
 	private static Set<Employee> mockEmployees;
 	private static Set<Comment> mockComments;
+	private static List<Reimbursement> mockPendingRequests;
 
 	@BeforeAll
 	public static void mockSetup() {
 		mockRequests = new HashSet<>();
 		mockComments = new HashSet<>();
 		mockEmployees = new HashSet<>();
+		mockPendingRequests= new ArrayList<>();
 		Department dep = new Department();
 		dep.setDeptId(1);
 		dep.setDeptHeadId(6);
 		dep.setName("test");
+		for (int i = 1; i < 11; i++) {
+			Reimbursement reimb = new Reimbursement();
+			reimb.setReqId(i);
+			reimb.getRequestor().setEmpId(i);
+			reimb.getStatus().setStatusId(i);
+			if(i<5)
+				reimb.getStatus().setName("denied");
+			else
+				reimb.getStatus().setName("approved");
+			mockPendingRequests.add(reimb);
+		}
 		for (int i = 1; i < 11; i++) {
 			Reimbursement reimb = new Reimbursement();
 			reimb.setReqId(i);
@@ -112,13 +130,37 @@ public class RequestReviewServiceTest {
 	}
 	
 	@Test
-	public void getAllRequestByRequestorSuccess() {
+	public void getPendingRequestByRequestorSuccess() {
 		Employee req = new Employee();
 		
-		when(reimDAO.getByRequestor(req)).thenReturn(mockRequests);
+		when(rrServ.getPendingReimbursements(req)).thenReturn(mockRequests);
 		Set<Reimbursement> a = rrServ.getPendingReimbursements(req);
 		
-		assertEquals(mockRequests.size(),a.size());
+		assertTrue(mockRequests.size()>a.size());
 	}
+	@Test
+	public void approveRequestSuccess() {
+		Reimbursement mockReimb= new Reimbursement();
+		mockReimb.getStatus().setName("denied");
+		doNothing().when(reimDAO).update(mockReimb);
+		rrServ.approveRequest(mockReimb);
+		assertTrue(mockReimb.getStatus().getName().equals("approved"));
+		 
+	
 
+		
+	}
+	@Test
+	public void denyRequestSuccess() {
+		Reimbursement mockReimb= new Reimbursement();
+		mockReimb.getStatus().setName("approved");
+		doNothing().when(reimDAO).update(mockReimb);
+		rrServ.rejectRequest(mockReimb);
+		assertTrue(mockReimb.getStatus().getName().equals("denied"));
+		 
+	}
+	
+	
+	
+	
 }

@@ -1,5 +1,7 @@
 package com.revature.services;
 
+
+import java.util.HashSet;
 import java.util.Set;
 
 import com.revature.beans.Comment;
@@ -13,9 +15,15 @@ public class RequestReviewServiceImpl implements RequestReviewService{
 	private ReimbursementDAO reimbDao= new ReimbursementPostgres();
 	@Override
 	public Set<Reimbursement> getPendingReimbursements(Employee approver) {
-	
+		Set<Reimbursement> all = reimbDao.getByRequestor(approver);
+		Set<Reimbursement> pending= new HashSet<Reimbursement>();
+		for(Reimbursement r: all) {
+			if(r.getStatus().getName().contains("pending")) {
+				pending.add(r);
+			}	
+		}
 		
-		return (reimbDao.getByRequestor(approver));
+		return pending;
 	}
 /**
  * Approving or rejecting requests requires us to create a Status object. 
@@ -23,21 +31,30 @@ public class RequestReviewServiceImpl implements RequestReviewService{
  * */
 	@Override
 	public void approveRequest(Reimbursement request) {
-		Status approvestat =request.getStatus();
-		approvestat.setName("Approved");
-		request.setStatus(approvestat);
+		Status stat =request.getStatus();
+		if(!stat.getName().equals("approved"))
+		stat.setName("approved");
+		
+		request.setStatus(stat);
 		reimbDao.update(request);
 	}
 
 	@Override
 	public void rejectRequest(Reimbursement request) {
-		Status approvestat =request.getStatus();
-		approvestat.setName("Denied");
-		request.setStatus(approvestat);
+		Status stat =request.getStatus();
+		if(!stat.getName().equals("denied"))
+		stat.setName("denied");
+		request.setStatus(stat);
 		reimbDao.update(request);
 		
 	}
-
+	@Override
+	public Reimbursement getById(int Id) {
+		
+	return reimbDao.getById(Id);
+		
+	}
+	
 	@Override
 	public void rejectRequest(Reimbursement request, Comment comment) {
 		// TODO Auto-generated method stub

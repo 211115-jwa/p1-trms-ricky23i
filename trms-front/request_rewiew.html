@@ -10,12 +10,26 @@
     </nav>
 
     <header>
-        <h1><span>Tuition Reimbursement</span></h1>
+        <h1><span>Pending Requests</span></h1>
     </header>
+    <form name="Approvals">
+        <label for="viewAll">Request ID:</label>
+        <input type="number" name="reqid" id="reqid">
+        <label for="tuser">Current Role</label>
+        <select id="role" name="tuser">
+            <option value="direct supervisor">Supervisor</option>
+            <option value="department head">Department Head</option>
+            <option value="benefits coordinator">Benefits Coordinator</option>
+        </select>
+        <button type="button" name="viewAll" id="approver" onclick="approveRequest()">Approve</button>
+        <button type="button" name="viewAll" id="denyr" onclick="denyRequest()">Deny</button>
+    </form>
+    <br>
+    <br>
     <form name="PendingRequests">
         <label for="viewAll">Employee ID:</label>
         <input type="number" name="employid" id="empid">
-        <button type="button" name="viewAll" onclick="getRequestByApprover()">View All Requests</button>
+        <button type="button" name="viewAll" onclick="getPendingRequestByID()">View All Requests</button>
     </form>
     <script src="trms_front.js"></script>
     <script src="trms_front_fetch.js"></script>

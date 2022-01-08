@@ -23,9 +23,18 @@ public class TRMSApp {
 		app.routes(() -> {
 			path("/requests", () -> {
 				post(RequestsController::submitReimbursementRequest);
+				path("/requestor/deny/{id}", () -> {
+					put(RequestsController::deny);
+				});
+				path("/requestor/approve/{id}", () -> {
+					put(RequestsController::approve);
+				});
 				path("/requestor/{id}", () -> {
 					get(RequestsController::getRequestsByRequestor);
 				});
+			});
+			path("/requests/manage/{id}", ()->{
+				get(RequestsController::getPendingRequestsByRequestor);
 			});
 			path("/emp/{id}", ()->{
 				get(RequestsController::getEmployeeById);

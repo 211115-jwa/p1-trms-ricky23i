@@ -4,14 +4,18 @@ package com.revature.controllers;
 //import org.apache.logging.log4j.Logger;
 import com.revature.beans.Employee;
 import com.revature.beans.Reimbursement;
+import com.revature.beans.Status;
 import com.revature.services.EmployeeService;
 import com.revature.services.EmployeeServiceImpl;
+import com.revature.services.RequestReviewService;
+import com.revature.services.RequestReviewServiceImpl;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 
 public class RequestsController {
 	private static EmployeeService empServ = new EmployeeServiceImpl();
+	private static RequestReviewService rrServ = new RequestReviewServiceImpl();
 	
 	//private static Logger log = LogManager.getLogger(RequestsController.class);
 	
@@ -84,6 +88,17 @@ public class RequestsController {
 			ctx.result("Requestor ID must be an integer. Please try again.");
 		}
 	}
+	
+	/**
+	 * Gets employee object from database for use in front end.
+	 * 
+	 * 
+	 * 
+	 *
+	 *
+	 */
+	
+	
 	public static void getEmployeeById(Context ctx) {
 		String requestorIdStr = ctx.pathParam("id");
 		try {
@@ -106,4 +121,72 @@ public class RequestsController {
 		
 		
 	}
+	
+	/**
+	 * sends pending requests by employee
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
+	
+public static void getPendingRequestsByRequestor(Context ctx) {
+		
+		String requestorIdStr = ctx.pathParam("id");
+
+		try {
+			int requestorId = Integer.valueOf(requestorIdStr);
+			Employee requestor = empServ.getEmployeeById(requestorId);
+			
+			if (requestor != null) {
+				ctx.json(rrServ.getPendingReimbursements(requestor));
+			} else {
+				ctx.status(404);
+				ctx.result("There are no pending requests");
+			}
+		} catch (NumberFormatException e) {
+			ctx.status(400);
+			ctx.result("Requestor ID must be an integer. Please try again.");
+		}
+	}
+
+/**
+ * Approves request by changing its status
+ * Front end handles user that is approving it
+ * */
+public static void approve(Context ctx) {
+
+	String requestorIdStr = ctx.pathParam("id");
+	Status stat = ctx.bodyAsClass(Status.class);
+	
+	try {
+		int requestorId = Integer.valueOf(requestorIdStr);
+		Reimbursement request =rrServ.getById(requestorId);
+		request.setStatus(stat);
+		rrServ.approveRequest(request);
+		ctx.status(202);
+		ctx.json(request);
+	} catch (NumberFormatException e) {
+		ctx.status(406);
+		ctx.result("Invalid request. Please try again.");
+	}
+}
+public static void deny(Context ctx) {
+
+	String requestorIdStr = ctx.pathParam("id");
+	Status stat = ctx.bodyAsClass(Status.class);
+	try {
+		int requestorId = Integer.valueOf(requestorIdStr);
+		Reimbursement request =rrServ.getById(requestorId);
+		System.out.println(requestorId);
+		request.setStatus(stat);
+		rrServ.rejectRequest(request);
+		ctx.status(202);
+		ctx.json(request);
+	} catch (NumberFormatException e) {
+		ctx.status(406);
+		ctx.result("Invalid request. Please try again.");
+	}
+}
+
 }
