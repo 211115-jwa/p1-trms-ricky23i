@@ -39,7 +39,16 @@ public class RequestsController {
 		//log.info("User is submitting reimbursement");
 		//System.out.println(ctx);
 		Reimbursement request = ctx.bodyAsClass(Reimbursement.class);
+		try {
+		if(request.getRequestor().getEmpId()==0) {
+			ctx.status(400);
+			ctx.result("No such employee exists");
+		}
+		else
+			
+		{
 		int reqId = empServ.submitReimbursementRequest(request);
+		
 		if (reqId != 0) {
 			ctx.status(HttpCode.CREATED);
 			request.setReqId(reqId);
@@ -47,6 +56,12 @@ public class RequestsController {
 		} else {
 			ctx.status(400);
 			ctx.result("Something went wrong with your submission. Please try again.");
+		}
+		}
+		}
+		catch (Exception e) {
+			ctx.status(400);
+			ctx.result("Requestor ID must be an integer. Please try again.");
 		}
 	}
 	
@@ -72,7 +87,7 @@ public class RequestsController {
 		
 		String requestorIdStr = ctx.pathParam("id");
 		//log.info("User is requesting all reimbursements");
-		System.out.println("lookup");
+		//System.out.println("lookup");
 		try {
 			int requestorId = Integer.valueOf(requestorIdStr);
 			Employee requestor = empServ.getEmployeeById(requestorId);

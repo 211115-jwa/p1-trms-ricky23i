@@ -27,7 +27,7 @@ public class EmployeeDAOTest {
 	}
 	
 	
-	@BeforeAll
+	@Test
 	public void getByIdNotNull()
 	{
 		assertNotNull(empDao.getById(1));

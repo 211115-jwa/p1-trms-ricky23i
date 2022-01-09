@@ -13,6 +13,7 @@ import com.revature.data.postgres.ReimbursementPostgres;
 
 public class RequestReviewServiceImpl implements RequestReviewService{
 	private ReimbursementDAO reimbDao= new ReimbursementPostgres();
+	
 	@Override
 	public Set<Reimbursement> getPendingReimbursements(Employee approver) {
 		Set<Reimbursement> all = reimbDao.getByRequestor(approver);

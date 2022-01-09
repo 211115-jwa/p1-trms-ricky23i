@@ -11,6 +11,8 @@ async function getPendingRequestByID() {
             alert('No pending requests found');
         showPendingRequests(requests);
     }
+    else
+        alert('something went wrong')
 }
 
 
@@ -51,6 +53,7 @@ function showPendingRequests(requests) {
 
         }
         requestTable.appendChild(rows);
+        alert("results");
     }
 }
 async function getRequestByID() {
@@ -63,6 +66,8 @@ async function getRequestByID() {
             alert('No requests found');
         showRequests(requests);
     }
+    else
+        alert('something went wrong')
 }
 
 
@@ -103,6 +108,7 @@ function showRequests(requests) {
 
         }
         requestTable.appendChild(rows);
+        alert("results")
     }
 }
 
