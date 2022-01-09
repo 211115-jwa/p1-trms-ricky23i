@@ -31,6 +31,7 @@ public class trmsPendingRequestsPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+	
 	public void navigateTo() {
 		driver.get("file:///C:/Users/rduen/eclipse-workspace/project1/p1-trms-ricky23i/trms-front/request_rewiew.html");
 	}
@@ -40,6 +41,7 @@ public class trmsPendingRequestsPage {
 		driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
 		reqbut.click();
 	}
+	@SuppressWarnings("deprecation")
 	public void submitApprove(String id) {
 		reqIdInput.sendKeys(id);
 		driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);

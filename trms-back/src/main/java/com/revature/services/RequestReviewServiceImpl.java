@@ -8,18 +8,24 @@ import com.revature.beans.Comment;
 import com.revature.beans.Employee;
 import com.revature.beans.Reimbursement;
 import com.revature.beans.Status;
+import com.revature.data.EmployeeDAO;
 import com.revature.data.ReimbursementDAO;
+import com.revature.data.postgres.EmployeePostgres;
 import com.revature.data.postgres.ReimbursementPostgres;
 
 public class RequestReviewServiceImpl implements RequestReviewService{
 	private ReimbursementDAO reimbDao= new ReimbursementPostgres();
+	private EmployeeDAO empDao = new EmployeePostgres();
 	
 	@Override
 	public Set<Reimbursement> getPendingReimbursements(Employee approver) {
-		Set<Reimbursement> all = reimbDao.getByRequestor(approver);
+		Set<Reimbursement> all = reimbDao.getAll();
 		Set<Reimbursement> pending= new HashSet<Reimbursement>();
 		for(Reimbursement r: all) {
-			if(r.getStatus().getName().contains("pending")) {
+			Employee emp= empDao.getById(r.getRequestor().getEmpId());
+			//System.out.print(emp.getSupervisor().getEmpId()==approver.getEmpId());
+			//System.out.print("----reqidsup"+r.getRequestor().getSupervisor().getEmpId()+"appid"+approver.getEmpId());
+			if(r.getStatus().getName().contains("pending")&&emp.getSupervisor().getEmpId()==approver.getEmpId()) {
 				pending.add(r);
 			}	
 		}

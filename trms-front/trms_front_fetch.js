@@ -53,8 +53,9 @@ function showPendingRequests(requests) {
 
         }
         requestTable.appendChild(rows);
-        alert("results");
+       
     }
+    alert("results");
 }
 async function getRequestByID() {
    

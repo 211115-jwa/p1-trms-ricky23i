@@ -31,7 +31,7 @@ public class trmsPendingRequestsStepImpl {
 
 	@When("the user enters a  correct employee id")
 	public void the_user_enters_a_correct_employee_id() {
-	   loginPage.submitRequest("2");
+	   loginPage.submitRequest("3");
 	}
 
 	@Then("the approproate alert appears")
@@ -60,7 +60,7 @@ public class trmsPendingRequestsStepImpl {
 
 	@When("the user enters a request id plus selects role")
 	public void the_user_enters_a_request_id_plus_selects_role() {
-	 loginPage.submitApprove("2");
+	 loginPage.submitApprove("3");
 	}
 
 	@When("the user enters a incorrect request id plus selects role")
