@@ -18,7 +18,7 @@ async function getPendingRequestByID() {
 
 function showPendingRequests(requests) {
     let requestTable = document.getElementById('requestsID');
-    for (var i = requestTable.rows.length - 1; i > 0; i--) {
+    for (let i = requestTable.rows.length - 1; i > 0; i--) {
         requestTable.deleteRow(i);
     }
     for (let request of requests) {
