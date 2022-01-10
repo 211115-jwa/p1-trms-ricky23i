@@ -32,9 +32,24 @@ function showPendingRequests(requests) {
                 //  console.log(o);
                 column.innerText = o;
                 rows.appendChild(column);
+
+            }
+            else if (field == 'cost') {
+
+                column.innerText = o;
+                rows.appendChild(column);
             }
             else if (field == 'requestor') {
                 column.innerText = o.firstName + ' ' + o.lastName;
+                rows.appendChild(column);
+                let c2 = document.createElement('tr');
+                c2.innerText = o.funds;
+                rows.appendChild(c2);
+
+            }
+            else if (field == 'eventDate') {
+               // console.log(o);
+                column.innerText = o[1] + '-' + o[2] + '-' + o[0];
                 rows.appendChild(column);
             }
             else if (field == 'status') {
@@ -47,6 +62,11 @@ function showPendingRequests(requests) {
             else if (field == 'description') {
 
                 column.innerText = o;
+                rows.appendChild(column);
+            }
+            else if (field == 'submittedAt') {
+              //  console.log(o);
+                column.innerText = o[1]+'-'+o[2]+'-'+ o[0];
                 rows.appendChild(column);
             }
 
