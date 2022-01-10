@@ -21,13 +21,27 @@ public class RequestReviewServiceImpl implements RequestReviewService{
 	public Set<Reimbursement> getPendingReimbursements(Employee approver) {
 		Set<Reimbursement> all = reimbDao.getAll();
 		Set<Reimbursement> pending= new HashSet<Reimbursement>();
+		String rolen= approver.getRole().getName();
 		for(Reimbursement r: all) {
-			Employee emp= empDao.getById(r.getRequestor().getEmpId());
+			if(r.getStatus().getName().contains("pending")) {
+				if(rolen.equals("direct supervisor")) {
+					if(r.getStatus().getApprover().equals("direct supervisor"))
+						pending.add(r);
+				}
+				else if(rolen.equals("department head")) {
+					if(r.getStatus().getApprover().equals("department head")||r.getStatus().getApprover().equals("direct supervisor"))
+						pending.add(r);
+				}
+				else 
+					pending.add(r);
+				
+			}
+			/*Employee emp= empDao.getById(r.getRequestor().getEmpId());
 			//System.out.print(emp.getSupervisor().getEmpId()==approver.getEmpId());
 			//System.out.print("----reqidsup"+r.getRequestor().getSupervisor().getEmpId()+"appid"+approver.getEmpId());
 			if(r.getStatus().getName().contains("pending")&&emp.getSupervisor().getEmpId()==approver.getEmpId()) {
 				pending.add(r);
-			}	
+			}	*/
 		}
 		
 		return pending;
